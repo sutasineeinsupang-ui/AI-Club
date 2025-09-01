@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI CLUB</title>
+  <style>
+    :root{
+      --blue1:#00c6ff; --blue2:#0072ff;
+      --red1:#ff416c; --red2:#ff4b2b;
+      --purple1:#667eea; --purple2:#764ba2;
+      --green1:#11998e; --green2:#38ef7d;
+      --orange1:#f093fb; --orange2:#f5576c;
+      --card:#ffffff; --bg:#f6f7fb; --text:#2b2b2b; --muted:#666;
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,"TH Sarabun New",Tahoma,sans-serif;color:var(--text)}
+    
+    /* Hero Banner */
+ .hero-banner {
+  background: url('https://i.postimg.cc/Hkqq4CHf/Ai-Club-Artificial-Intelligence-Club.png') center/cover no-repeat;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 30px 30px;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(30px, -30px) rotate(120deg); }
+      66% { transform: translate(-20px, 20px) rotate(240deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 800;
+      margin: 0 0 20px 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      letter-spacing: -2px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      opacity: 0.9;
+      margin: 0 0 30px 0;
+      font-weight: 300;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      opacity: 0.8;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .ai-icon {
+      position: absolute;
+      font-size: 80px;
+      opacity: 0.1;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    .ai-icon:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+    .ai-icon:nth-child(2) { top: 60%; right: 15%; animation-delay: 1s; }
+    .ai-icon:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 2s; }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.1; }
+      50% { transform: scale(1.1); opacity: 0.2; }
+    }
+
+    header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);padding:16px 20px;border-bottom:1px solid #e9eef5;box-shadow: 0 2px 20px rgba(0,0,0,0.1);}
+    h1{margin:0;font-size:22px;text-align:center;background:linear-gradient(135deg,var(--purple1),var(--purple2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:25px;margin:40px 0}
+
+    .card{background:var(--card);border-radius:var(--radius);padding:25px;box-shadow:0 10px 30px rgba(0,0,0,.08);border:1px solid #edf0f6;display:flex;flex-direction:column;transition:transform 0.3s ease,box-shadow 0.3s ease;position:relative;overflow:hidden}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue1),var(--blue2))}
+    .card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,0,0,.12)}
+    
+    .top{display:flex;gap:15px;align-items:center;margin-bottom:15px}
+
+    .logo{width:60px;height:60px;border-radius:16px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#fff;flex:0 0 60px;background:linear-gradient(135deg,var(--purple1),var(--purple2));box-shadow:0 4px 15px rgba(102,126,234,0.3);position:relative}
+    .logo::after{content:'';position:absolute;inset:2px;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,0.2),rgba(255,255,255,0.05))}
+
+    /* Custom logos for each service */
+    .card:nth-child(1) .logo{background:linear-gradient(135deg,#10a37f,#1a7f5a)} /* ChatGPT */
+    .card:nth-child(2) .logo{background:linear-gradient(135deg,#1da1f2,#0d8bd9)} /* Grok */
+    .card:nth-child(3) .logo{background:linear-gradient(135deg,#4285f4,#1a73e8)} /* Gemini */
+    .card:nth-child(4) .logo{background:linear-gradient(135deg,#0078d4,#106ebe)} /* Copilot */
+    .card:nth-child(5) .logo{background:linear-gradient(135deg,#ea4335,#d93025)} /* Google AI Studio */
+    .card:nth-child(6) .logo{background:linear-gradient(135deg,#7c3aed,#5b21b6)} /* Botnoi */
+    .card:nth-child(7) .logo{background:linear-gradient(135deg,#ff6b6b,#ee5a52)} /* Suno AI */
+    .card:nth-child(8) .logo{background:linear-gradient(135deg,#d97706,#92400e)} /* Claude */
+    .card:nth-child(9) .logo{background:linear-gradient(135deg,#8b5cf6,#7c3aed)} /* Canva */
+    .card:nth-child(10) .logo{background:linear-gradient(135deg,#06b6d4,#0891b2)} /* Dreamina */
+    .card:nth-child(11) .logo{background:linear-gradient(135deg,#f59e0b,#d97706)} /* UVoice AI */
+    .card:nth-child(12) .logo{background:linear-gradient(135deg,#10b981,#059669)} /* NotebookLM */
+    .card:nth-child(13) .logo{background:linear-gradient(135deg,#8b5cf6,#7c3aed)} /* zep.quiz */
+    .card:nth-child(14) .logo{background:linear-gradient(135deg,#f97316,#ea580c)} /* ikigai */
+    .card:nth-child(15) .logo{background:linear-gradient(135deg,#3b82f6,#2563eb)} /* Speechnotes */
+    .card:nth-child(16) .logo{background:linear-gradient(135deg,#ef4444,#dc2626)} /* Padlet */
+    .card:nth-child(17) .logo{background:linear-gradient(135deg,#6366f1,#4f46e5)} /* MiniMax */
+    .card:nth-child(18) .logo{background:linear-gradient(135deg,#ec4899,#db2777)} /* Luvvoice */
+
+    .title{font-size:20px;font-weight:800;margin:0;color:var(--text)}
+
+    .desc{color:var(--muted);font-size:15px;line-height:1.6;margin:15px 0 0 0;flex:1}
+
+    .btns{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{appearance:none;border:0;outline:0;text-decoration:none;color:#fff;font-weight:700;padding:12px 18px;border-radius:25px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 15px rgba(0,0,0,.15);transition:all .2s ease;font-size:14px}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.2)}
+    .btn:active{transform:translateY(0)}
+    .blue{background:linear-gradient(45deg,var(--blue1),var(--blue2))}
+    .red{background:linear-gradient(45deg,var(--red1),var(--red2))}
+
+    .btn .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.9)}
+
+    .stats-bar {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin: 40px 0;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+    }
+
+    .stats-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      opacity: 0.9;
+      font-size: 1rem;
+    }
+
+    footer{max-width:1200px;margin:60px auto 50px;padding:0 20px;color:#8891a2;font-size:14px;text-align:center;border-top:1px solid #e9eef5;padding-top:30px}
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.5rem; }
+      .hero-subtitle { font-size: 1.2rem; }
+      .grid { grid-template-columns: 1fr; gap: 20px; }
+      .card { padding: 20px; }
+      .stats-content { grid-template-columns: 1fr; gap: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2rem; }
+      .hero-content { padding: 0 15px; }
+      .btn { padding: 10px 15px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="ai-icon">🤖</div>
+    <div class="ai-icon">⚡</div>
+    <div class="ai-icon">🚀</div>
+    <div class="hero-content">
+
+
+    </div>
+  </div>
+
+  <header>
+    <h1>ศูนย์รวมเครื่องมือ AI CLUB</h1>
+  </header>
+
+  <main class="wrap">
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stats-content">
+        <div class="stat-item">
+          <div class="stat-number">18</div>
+          <div class="stat-label">เครื่องมือ AI</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">ฟรีใช้งาน</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">10/10</div>
+          <div class="stat-label">พร้อมใช้งาน</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <!-- 1. ChatGPT -->
+      <article class="card" aria-label="ChatGPT">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/ujQDRH" alt="ChatGPT Logo" style="width:40px; height:40px;">
+    </div>
+          <h2 class="title">Chat GPT</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">เป็นเครื่องมือ AI ที่ช่วยตอบคำถาม แก้ปัญหา และสร้างเนื้อหาได้หลายรูปแบบ เช่น บทความ อีเมล หรือการสื่อสารในทีม ช่วยประหยัดเวลาและเพิ่มประสิทธิภาพในงานเอกสาร พร้อมความคิดสร้างสรรค์ตามความต้องการ</p>
+        <div class="btns">
+          <a class="btn blue" href="https://chatgpt.com/" target="_blank" rel="noopener"> <span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="https://zapier-com.translate.goog/blog/how-to-use-chatgpt/?_x_tr_sl=en&amp;_x_tr_tl=th&amp;_x_tr_hl=th&amp;_x_tr_pto=tc" target="_blank" rel="noopener"> <span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 2. Grok (xAI) -->
+      <article class="card" aria-label="Grok xAI">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/IgmsYl" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">Grok (xAI)</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">นำเสนอข้อมูลเหตุการณ์ปัจจุบันได้อย่างรวดเร็ว พร้อมบุคลิกการตอบสนองที่มีอารมณ์ขัน และให้ข้อมูลที่ AI อื่นอาจหลีกเลี่ยง</p>
+        <div class="btns">
+          <a class="btn blue" href="https://x.ai/grok" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="https://blog.thatagency.com/how-to-use-grok-ai" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 3. Gemini -->
+      <article class="card" aria-label="Gemini">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/c1I4TD" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">Gemini</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">ทำความเข้าใจและประมวลผลข้อมูลหลายรูปแบบพร้อมกัน เช่น ข้อความ รูปภาพ เสียง วิดีโอ และโค้ด มีประสิทธิภาพสูงและยืดหยุ่นในการปรับใช้</p>
+        <div class="btns">
+          <a class="btn blue" href="https://gemini.google.com/app?hl=th" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="https://zapier-com.translate.goog/blog/how-to-use-google-gemini/?_x_tr_sl=en&amp;_x_tr_tl=th&amp;_x_tr_hl=th&amp;_x_tr_pto=tc" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 4. Copilot -->
+      <article class="card" aria-label="Microsoft Copilot">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/wjBv7Z" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">Copilot</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">ผู้ช่วยทำงานใน Microsoft 365 เช่น ร่างอีเมล สรุปการประชุม และสร้างงานนำเสนอ เพื่อเพิ่มประสิทธิภาพการทำงาน</p>
+        <div class="btns">
+          <a class="btn blue" href="https://copilot.microsoft.com/chats/CD9UfcPb5XkcNFzwAB8ef" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="https://drive.google.com/drive/u/0/search?q=pdf%20type:pdf" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 5. Google AI Studio -->
+      <article class="card" aria-label="Google AI Studio">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/SrHTrk" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">Google AI Studio</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">ส่วนเชื่อมต่อและเครื่องมือสำหรับนักพัฒนา เพื่อเข้าถึงและใช้งานโมเดลพื้นฐานของ Google ได้สะดวก</p>
+        <div class="btns">
+          <a class="btn blue" href="https://aistudio.google.com/prompts/new_chat" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="https://thethaiger.com/th/news/1370907/" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 6. Botnoi -->
+      <article class="card" aria-label="Botnoi">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/eKSqfN" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">Botnoi</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">เชี่ยวชาญ AI ภาษาไทย โดดเด่นด้านแชตบอท บริการแปลงข้อความเป็นเสียง/เสียงเป็นข้อความ และงานประมวลผลภาษาไทย (NLP)</p>
+        <div class="btns">
+          <a class="btn blue" href="https://voice.botnoi.ai/" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="https://thedigitaltips.com/blog/ai-marketing/botnoi-voice/" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 7. Suno AI -->
+      <article class="card" aria-label="Suno AI">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/X5Lj9g" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">Suno AI</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">สร้างสรรค์บทเพลงจากข้อความอธิบายแนวเพลง/เนื้อร้อง สร้างทั้งดนตรีและเสียงร้องได้หลายสไตล์</p>
+        <div class="btns">
+          <a class="btn blue" href="https://suno.com/home" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="https://www.mikkipastel.com/how-to-use-suno-ai-to-generate-music/" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 8. Claude -->
+      <article class="card" aria-label="Claude">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/EaYNpi" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">Claude</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">เชี่ยวชาญสนทนาและเขียนเชิงสร้างสรรค์ ช่วยวิเคราะห์ข้อมูล ปรับปรุงเอกสาร และตอบคำถามอย่างเป็นธรรมชาติ เหมาะกับงานทีมที่ต้องการความเร็วและคุณภาพ</p>
+        <div class="btns">
+          <a class="btn blue" href="https://claude.ai/" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="#" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 9. Canva -->
+      <article class="card" aria-label="Canva">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/7MZQJw" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">Canva</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">เครื่องมือออกแบบกราฟิกที่ใช้งานง่าย สร้างโปสเตอร์ แบนเนอร์ และโพสต์โซเชียลได้รวดเร็ว พร้อม AI ช่วยออกแบบ</p>
+        <div class="btns">
+          <a class="btn blue" href="https://www.canva.com/" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="https://arit.rmutp.ac.th/2567/wp-content/uploads/2025/02/%E0%B8%84%E0%B8%B9%E0%B9%88%E0%B8%A1%E0%B8%B7%E0%B8%AD-24-%E0%B9%80%E0%B8%A1%E0%B8%A9%E0%B8%B2.pdf" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 10. Dreamina -->
+      <article class="card" aria-label="Dreamina">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/oDtfvW" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">Dreamina</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">สร้างภาพคุณภาพสูงจากข้อความ ปรับปรุง/รีทัชภาพ ลบวัตถุที่ไม่ต้องการ และสร้างภาพจากภาพต้นฉบับ</p>
+        <div class="btns">
+          <a class="btn blue" href="https://dreamina.capcut.com/" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="#" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 11. UVoice AI -->
+      <article class="card" aria-label="UVoice AI">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/3cSugs" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">UVoice AI</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">แปลงข้อความเป็นเสียงพูดได้หลายเสียง รองรับภาษาไทยและอีกหลายภาษา เหมาะกับงานพากย์และสื่อการสอน</p>
+        <div class="btns">
+          <a class="btn blue" href="https://www.uvoice.app/" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="#" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 12. NotebookLM -->
+      <article class="card" aria-label="NotebookLM">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/OJAJ6r" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">NotebookLM</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">สร้างบทสรุป ตอบคำถาม ทำคู่มือการเรียนรู้ และสร้างพอดแคสต์จากข้อมูลของผู้ใช้ได้</p>
+        <div class="btns">
+          <a class="btn blue" href="https://notebooklm.google.com/" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="#" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 13. zep.quiz -->
+      <article class="card" aria-label="zep.quiz">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/BopBWb" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">zep.quiz</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">เครื่องมือสร้างแบบทดสอบ มีโหมดเล่นหลากหลาย เช่น แบบทีม แบบเรียงลำดับ และแบบอิสระ ใช้ได้ทั้งในห้องเรียนและอีเวนต์</p>
+        <div class="btns">
+          <a class="btn blue" href="https://quiz.zep.us/th" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="https://cdn-static-quiz.zep.us/6842ef2d0114790871639fa5/material/file/1749217142757.pdf" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 14. ikigai -->
+      <article class="card" aria-label="ikigai">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/y6VDUZ" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">ikigai</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">ช่วยค้นหาจุดร่วมของสิ่งที่เรารัก เก่ง สิ่งที่โลกต้องการ และสิ่งที่สร้างรายได้ เพื่อวางเข็มทิศการทำงานและชีวิต</p>
+        <div class="btns">
+          <a class="btn blue" href="https://chatgpt.com/g/g-68328c9c509081918d71a3f089befeb8-ikigai-compass" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="#" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 15. Speechnotes -->
+      <article class="card" aria-label="Speechnotes">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/CSNZqw" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">Speechnotes</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">แปลงเสียงเป็นข้อความอย่างแม่นยำ รองรับการบันทึก อัปโหลดไฟล์เสียง และการใช้งานบนมือถือ</p>
+        <div class="btns">
+          <a class="btn blue" href="https://speechnotes.co/mobile/" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="#" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 16. Padlet -->
+      <article class="card" aria-label="Padlet">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/ctjk1A" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">padlet</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">กระดานออนไลน์สำหรับโพสต์ข้อความ รูปภาพ และลิงก์ จัดกลุ่มและแก้ไขได้ เหมาะกับงานกลุ่มและการเรียนการสอน</p>
+        <div class="btns">
+          <a class="btn blue" href="https://padlet.com/" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="http://ge.vru.ac.th/gevru/wp-content/uploads/2020/07/Manual_PAdlet.pdf" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 17. MiniMax -->
+      <article class="card" aria-label="MiniMax">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://is.gd/YoPju3" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">MiniMax</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">บริการโคลนเสียงพากย์สำหรับงานสื่อและคอนเทนต์ สร้างเสียงที่คล้ายต้นฉบับได้</p>
+        <div class="btns">
+          <a class="btn blue" href="https://www.minimax.io/audio" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="#" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+      <!-- 18. Luvvoice -->
+      <article class="card" aria-label="Luvvoice">
+        <div class="top">
+          <div class="logo" aria-hidden="true"><img src="https://cdn-icons-png.flaticon.com/512/10419/10419266.png" alt="ChatGPT Logo" style="width:40px; height:40px;">
+	</div>
+          <h2 class="title">Luvvoice</h2>
+        </div>
+        <p class="desc" style="font-size: 24px; font-weight: bold;">แปลงข้อความเป็นเสียงพูด ใช้งานง่าย เลือกเสียงได้หลายแบบ เหมาะกับคอนเทนต์และสื่อการสอน</p>
+        <div class="btns">
+          <a class="btn blue" href="https://luvvoice.com/th" target="_blank" rel="noopener"><span class="dot"></span> เปิดใช้งาน</a>
+          <a class="btn red" href="#" target="_blank" rel="noopener"><span class="dot"></span> คู่มือการใช้</a>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    © 2025 AI CLUB • โรงเรียนราชประชานุเคราะห์ 23 จังหวัดพิษณุโลก
+  </footer>
+</body>
+</html>
